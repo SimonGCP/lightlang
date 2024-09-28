@@ -1,6 +1,4 @@
 from enum import Enum
-from token import EXCLAMATION
-
 
 class TokenTypes(Enum):
     # single characters
@@ -17,14 +15,20 @@ class TokenTypes(Enum):
     EQUALS=14
     NOT_EQUALS=15
     EQUAL_TO=16
-    EXCLAMATION=17
+    LESS_EQUALS=15
+    EQUALS_EQUALS=16
+    GREATER_EQUALS=17
+    LESS=18
+    GREATER=19
+    EXCLAM=20
+    EXCLAM_EQUALS=21
+    TRUE=22
+    FALSE=23
 
     # literals
     IDENTIFIER=8
     STRING=9
     NUMBER=10
-    TRUE=11
-    FALSE=12
 
     # keywords
     FUNCTION=11

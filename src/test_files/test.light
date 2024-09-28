@@ -1,0 +1,9 @@
+f m() {
+  h = "hello world"
+  n = 12.43 + 50 / 3
+  z = t
+  b = !t
+  n = z == t
+  p(h)
+  r
+}

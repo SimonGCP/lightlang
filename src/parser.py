@@ -59,12 +59,22 @@ class Parser:
 
     def equality(self):
 
+        expr = self.comparison()
+
+        while self.match(TokenTypes.EXCLAM_EQUALS, TokenTypes.EQUAL_TO):
+            operator = self.previous()
+            right_operand = self.comparison()
+            expr = (operator.tokenType, expr, right_operand)
+
+        return expr
+
+    def comparison(self):
         expr = self.term()
 
-        while self.match(TokenTypes.NOT_EQUALS, TokenTypes.EQUAL_TO):
+        while self.match(TokenTypes.GREATER, TokenTypes.GREATER_EQUALS, TokenTypes.LESS, TokenTypes.LESS_EQUALS):
             operator = self.previous()
-            right_operand = self.term()
-            expr = (operator.tokenType, expr, right_operand)
+            right = self.term()
+            expr = (operator.type, expr, right)
 
         return expr
 
@@ -92,7 +102,7 @@ class Parser:
         return expr
 
     def unary(self):
-        if self.match(TokenTypes.EXCLAMATION, TokenTypes.MINUS):
+        if self.match(TokenTypes.EXCLAM, TokenTypes.MINUS):
             operator = self.previous()
             right_operand = self.unary()
             return (operator.tokenType, right_operand)
@@ -120,6 +130,7 @@ class Parser:
 
         func_name = self.previous().lexeme
 
+        print(func_name)
         self.consume("Expect '(' after expression.", TokenTypes.LEFT_PAREN)
 
         args = []
