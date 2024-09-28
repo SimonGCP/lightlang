@@ -28,7 +28,9 @@ class Scanner():
             self.start = self.current
             if (self.scanToken() == False):
                 error = error(self.line, self.source[self.start:self.current], "Unexpected character")
-        
+
+        self.addToken(TokenTypes.EOF)
+
         return error
     
     def isAtEnd(self):

@@ -26,13 +26,13 @@ class TokenTypes(Enum):
     FALSE=23
 
     # literals
-    IDENTIFIER=8
-    STRING=9
-    NUMBER=10
+    IDENTIFIER=24
+    STRING=25
+    NUMBER=26
 
     # keywords
-    FUNCTION=11
-    PRINT_STATEMENT=12
+    FUNCTION=27
+    PRINT_STATEMENT=28
     EOF=999
 
 
