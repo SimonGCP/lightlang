@@ -20,11 +20,15 @@ class Scanner():
         self.tokens = []
     
     def scanTokens(self):
+        error = False
+
         while (self.isAtEnd() == False):
             self.start = self.current
             if (self.scanToken() == False):
-                return error(self.line, self.source[self.start:self.current], "Unexpected character")
-
+                error = error(self.line, self.source[self.start:self.current], "Unexpected character")
+        
+        return error
+    
     def isAtEnd(self):
         return self.current >= len(self.source)
     
@@ -113,8 +117,6 @@ class Scanner():
                 else: self.addToken(TokenTypes.EXCLAM)
             case "t":
                 self.addToken(TokenTypes.TRUE)
-            case "f":
-                self.addToken(TokenTypes.FUNCTION)
             case '"':
                 self.string()
             case " ": return True # ignore whitespace
