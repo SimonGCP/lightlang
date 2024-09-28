@@ -168,8 +168,6 @@ def error(lineNumber, line, message):
 
 def lexer(argv):
 
-    argv = sys.argv
-
     if (len(argv) < 2):
         print("usage: lexer.py <name of .light file>")
         return 1
