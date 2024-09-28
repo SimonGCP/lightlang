@@ -79,6 +79,13 @@ class Scanner():
 
         self.current += 1
         return True
+
+    def peekNext(self, expected):
+
+        if (self.isAtEnd()): return False
+        if (self.source[self.current] != expected): return False
+
+        return True
         
     
     def scanToken(self):
@@ -129,7 +136,9 @@ class Scanner():
                 return True
             case _:
                 if (isAlpha(c)):
-                    if (self.match("(")): self.addToken(TokenTypes.FUNCTION)
+                    next = self.current + 1
+                    if self.peekNext("("):
+                        self.addToken(TokenTypes.FUNCTION)
                     else:
                         self.addToken(TokenTypes.IDENTIFIER)
                     return True
@@ -175,8 +184,8 @@ def main():
     argv = sys.argv
     
     token_list = lexer(argv)
-    # for token in token_list:
-    #     print(token.toString())
+    for token in token_list:
+        print(token.toString())
 
     parser = Parser(token_list)
 
