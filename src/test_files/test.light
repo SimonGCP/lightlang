@@ -1,4 +1,4 @@
-f m() {
+m() {
   h = "hello world"
   n = 12.43 + 50 / 3
   z = t
