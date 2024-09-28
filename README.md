@@ -6,5 +6,5 @@ Lightlang is the solution for you.
 Lightlang is an interpreted language where every variable and keyword is just one letter. That means that there are 26 possible keywords and variable names. If you need more, whatever you're doing
 probabliy isn't worth doing anyway. This keeps the code simple and extremely fast to write. Faster than light, one might say.
 
-no bitches
+This project was made in about 8 hours and was intended for SFU's 2024 Fall Hacks Hackathon.
 

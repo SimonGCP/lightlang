@@ -1,3 +1,5 @@
+from enum import Enum
+
 class TokenTypes(Enum):
     # single characters
     LEFT_BRACKET=0
@@ -11,6 +13,15 @@ class TokenTypes(Enum):
     DOT=12
     COMMA=13
     EQUALS=14
+    LESS_EQUALS=15
+    EQUALS_EQUALS=16
+    GREATER_EQUALS=17
+    LESS=18
+    GREATER=19
+    EXCLAM=20
+    EXCLAM_EQUALS=21
+    TRUE=22
+    FALSE=23
 
     # literals
     IDENTIFIER=8
