@@ -33,6 +33,7 @@ class TokenTypes(Enum):
     # keywords
     FUNCTION=27
     PRINT_STATEMENT=28
+    LIST=29
     EOF=999
 
 

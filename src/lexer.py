@@ -128,6 +128,8 @@ class Scanner():
                 else: self.addToken(TokenTypes.EXCLAM)
             case "t":
                 self.addToken(TokenTypes.TRUE)
+            case "p":
+                self.addToken(TokenTypes.PRINT_STATEMENT)
             case '"':
                 self.string()
             case " ": return True # ignore whitespace
@@ -179,6 +181,84 @@ def lexer(argv):
     scanner.scanTokens()
     return scanner.tokens
 
+class TreeNode:
+    def __init__(self, token_type, value, children=None):
+        self.token_type = token_type
+        self.value = value
+        self.children = children if children else []
+
+    def __repr__(self):
+        return f"TreeNode({self.token_type}, {self.value})"
+
+def build_tree(node):
+    if isinstance(node, tuple):
+        token_type, value, *children = node
+        tree_node = TreeNode(token_type, value)
+        
+        for child in children:
+            tree_node.children.append(build_tree(child))
+        
+        return tree_node
+    elif isinstance(node, list):
+        tree_node = TreeNode(TokenTypes.LIST, "list")
+        for child in node:
+            tree_node.children.append(build_tree(child))
+
+        return tree_node
+    else:
+        # Handle the case for non-tuple values (e.g., strings, numbers)
+        return TreeNode('VALUE', node)
+    
+
+def traverse(node):
+    if node is None:
+        return
+    
+    children = node.children
+    if (len(children) > 0):
+        traverse(children[0])
+    if (len(children) > 1):
+        traverse(children[1])
+
+    node.value = evaluate(node)
+    print(node)
+
+
+
+
+
+def evaluate(node):
+    match node.token_type:
+        case TokenTypes.EQUALS:
+            print(node.value, "=", node.children[0].value)
+            return node.children[0].value
+        case TokenTypes.PLUS:
+            total = float(node.value)
+            for children in node.children:
+                total += float(children.value)
+            return total
+        case TokenTypes.MINUS:
+            total = float(node.value)
+            for children in node.children:
+                total -= float(children.value)
+            return total
+        case TokenTypes.TIMES:
+            total = float(node.value)
+            for children in node.children:
+                total *= float(children.value)
+        case TokenTypes.NOT_EQUALS:
+            return node.value != node.children[0]
+
+        case TokenTypes.DIVIDE:
+            total = float(node.value)
+            for children in node.children:
+                total /= float(children.value)
+            return total
+        case TokenTypes.EQUALS_EQUALS:
+            return node.value == node.children[0]
+        case _:
+            return node.value
+
 
 def main():
     argv = sys.argv
@@ -189,9 +269,12 @@ def main():
 
     parser = Parser(token_list)
 
-    ast = parser.expression()
+    a = parser.expression()
+    # print(a)
+    ast = build_tree(a)
 
-    print(ast)
+    # print(ast)
+    traverse(ast)
 
 
     return 0

@@ -133,7 +133,7 @@ class Parser:
                       TokenTypes.IDENTIFIER.value):
             return self.previous().lexeme
 
-        if self.match(TokenTypes.FUNCTION.value):
+        if self.match(TokenTypes.FUNCTION.value, TokenTypes.PRINT_STATEMENT):
             return self.function_call()
 
         if self.match(TokenTypes.LEFT_PAREN.value):
