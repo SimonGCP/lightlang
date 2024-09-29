@@ -129,7 +129,7 @@ class Scanner():
             case "t":
                 self.addToken(TokenTypes.TRUE)
             case "p":
-                self.addToken(TokenTypes.PRINT_STATEMENT)
+                self.addToken(TokenTypes.IDENTIFIER)
             case '"':
                 self.string()
             case " ": return True # ignore whitespace
@@ -225,8 +225,6 @@ def traverse(node):
 
 
 
-
-
 def evaluate(node):
     match node.token_type:
         case TokenTypes.EQUALS:
@@ -248,7 +246,21 @@ def evaluate(node):
                 total *= float(children.value)
         case TokenTypes.NOT_EQUALS:
             return node.value != node.children[0]
-
+        case TokenTypes.PRINT_STATEMENT:
+            print(float.children[0])
+            return
+        case TokenTypes.TRUE:
+            return True
+        case TokenTypes.FALSE:
+            return False
+        case TokenTypes.GREATER:
+            return node.value > node.children[0]
+        case TokenTypes.GREATER_EQUALS:
+            return node.value >= node.children[0]
+        case TokenTypes.LESS:
+            return node.value < node.children[0]
+        case TokenTypes.LESS_EQUALS:
+            return node.value <= node.children[0]
         case TokenTypes.DIVIDE:
             total = float(node.value)
             for children in node.children:

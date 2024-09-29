@@ -133,7 +133,7 @@ class Parser:
                       TokenTypes.IDENTIFIER.value):
             return self.previous().lexeme
 
-        if self.match(TokenTypes.FUNCTION.value, TokenTypes.PRINT_STATEMENT):
+        if self.match(TokenTypes.FUNCTION.value):
             return self.function_call()
 
         if self.match(TokenTypes.LEFT_PAREN.value):
@@ -146,9 +146,14 @@ class Parser:
     def function_call(self):
 
         function = self.previous()
+
         func_name = function.lexeme
         self.consume("Expect '(' after expression.", TokenTypes.LEFT_PAREN.value, TokenTypes.RIGHT_PAREN.value)
 
+        if (function.tokenType == TokenTypes.PRINT_STATEMENT):
+            print(self.peek())
+            return
+        
         args = []
 
         if not self.check_token(TokenTypes.RIGHT_PAREN.value):
